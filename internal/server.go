@@ -1,7 +1,7 @@
 package internal
 
 import (
-	"app_backend/internal/route"
+	"app_backend/internal/module/test"
 	"fmt"
 
 	"github.com/gofiber/fiber/v2"
@@ -10,7 +10,7 @@ import (
 
 func StartServer() error {
 	app := fiber.New()
-	route.RegisterRoutes(app)
+	test.RegisterRoutes(app)
 	port := viper.GetInt("port")
 	if port == 0 {
 		port = 8080

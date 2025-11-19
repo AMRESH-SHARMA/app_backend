@@ -60,4 +60,27 @@
 
 ---
 
-Use this file to track what has been built and what needs to be built for the backend.
+## Suggested Project Modules
+
+- **auth** – User registration, login, OTP verification, password reset
+- **user** – User profile, balance, transaction history, settings
+- **listener** – Listener registration, profile, availability, session history
+- **session** – Session creation, tracking, ending, billing, history
+- **payment** – Payment initiation, webhook/callback handling, top-up, refunds
+- **agora** – Real-time audio/video token generation, event callbacks
+- **notification** – Push, SMS, or email notifications for events (OTP, session start/end, etc.)
+- **admin** – Admin dashboard, user/listener/session management, analytics
+- **support** – Support ticket creation, FAQ, feedback
+- **config** – Environment/configuration management (Viper, .env, etc.)
+- **middleware** – Auth, logging, error handling, rate limiting, CORS, etc.
+- **util** – Utility functions (helpers, validators, etc.)
+- **repository** – Database access and queries (user, session, payment, etc.)
+- **service** – Business logic layer (optional, for clean architecture)
+- **route** – Route registration and grouping
+- **analytics** – Usage tracking, reporting, metrics
+- **referral** – Referral codes, bonuses, affiliate tracking
+- **promotion** – Coupons, discounts, special offers
+- **audit** – Audit logs for sensitive actions
+- **test** – Test routes, mocks, or integration test helpers
+
+Use this section to plan and track your project structure and module responsibilities.
