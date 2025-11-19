@@ -1,0 +1,21 @@
+# .air.toml
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o tmp/main.exe ./main.go"  # 🔧 Build your app as .exe manually
+  bin = "tmp/main.exe"                            # ✅ Windows needs .exe
+  include_ext = ["go"]
+  exclude_dir = ["tmp", "vendor"]
+  delay = 1000
+  follow_symlink = true
+
+[log]
+  time = true
+
+[watch]
+  files = [
+    "**/*.go",
+    "config.dev.yaml",
+    "config.prod.yaml"
+  ]
