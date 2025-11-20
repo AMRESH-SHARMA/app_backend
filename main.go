@@ -2,7 +2,7 @@ package main
 
 import (
 	"app_backend/internal"
-	"app_backend/pkg/config"
+	"app_backend/internal/config"
 	"log"
 )
 

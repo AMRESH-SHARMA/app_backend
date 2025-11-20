@@ -1,6 +1,45 @@
 package listener
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"app_backend/internal/response"
+	"app_backend/internal/testdb"
+
+	"github.com/gofiber/fiber/v2"
+)
+
+// global search for listeners by name, ID, or language
+func GlobalSearch(c *fiber.Ctx) error {
+	query := c.Query("query")
+	// log.Printf("q", query)
+	var listeners []testdb.Listener
+	// if dbInstance == nil {
+	// 	return response.SuccessResponse(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
+	// }
+	// dbInstance.Where("name LIKE ? OR language LIKE ? OR id = ?", "%"+query+"%", "%"+query+"%", query).Find(&listeners)
+	return response.SuccessResponse(c, fiber.Map{
+		"results": listeners,
+		"query":   query,
+	}, "Global search successful", fiber.StatusOK)
+}
+
+// custom search for listeners by language, gender, and age group
+func CustomSearch(c *fiber.Ctx) error {
+	language := c.Query("language")
+	gender := c.Query("gender")
+	ageGroup := c.Query("age_group")
+	var listeners []testdb.Listener
+	// if dbInstance == nil {
+	// 	return response.SuccessResponse(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
+	// }
+	// dbInstance.Where("language = ? AND gender = ? AND age_group = ?", language, gender, ageGroup).Find(&listeners)
+
+	return response.SuccessResponse(c, fiber.Map{
+		"results":   listeners,
+		"language":  language,
+		"gender":    gender,
+		"age_group": ageGroup,
+	}, "Custom search successful", fiber.StatusOK)
+}
 
 // RegisterListener handles listener registration
 func RegisterListener(c *fiber.Ctx) error {
@@ -14,55 +53,62 @@ func LoginListener(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{"message": "Listener logged in"})
 }
 
-// GetProfile returns the listener's profile
-func GetProfile(c *fiber.Ctx) error {
-	// TODO: implement profile retrieval
-	return c.JSON(fiber.Map{"profile": nil})
+// Add server side pagination
+func GetAllListener(c *fiber.Ctx) error {
+	return c.JSON(fiber.Map{"message": "Listener logged in"})
 }
 
-// UpdateProfile updates the listener's profile
+func GetProfile(c *fiber.Ctx) error {
+	id := c.Params("id")
+	/*
+		account_id
+		name
+		avataar
+		tag_line
+		posts
+		rating
+		reviewesCount
+		experience
+		language
+	*/
+	return c.JSON(fiber.Map{"profile": id})
+}
+
 func UpdateProfile(c *fiber.Ctx) error {
 	// TODO: implement profile update
 	return c.JSON(fiber.Map{"message": "Profile updated"})
 }
 
-// GetAvailability returns the listener's availability status
 func GetAvailability(c *fiber.Ctx) error {
 	// TODO: implement availability retrieval
 	return c.JSON(fiber.Map{"available": true})
 }
 
-// UpdateAvailability updates the listener's availability status
 func UpdateAvailability(c *fiber.Ctx) error {
 	// TODO: implement availability update
 	return c.JSON(fiber.Map{"message": "Availability updated"})
 }
 
-// GetSessions lists all sessions handled by the listener
 func GetSessions(c *fiber.Ctx) error {
 	// TODO: implement session listing
 	return c.JSON(fiber.Map{"sessions": []interface{}{}})
 }
 
-// GetEarnings returns the listener's earnings summary
 func GetEarnings(c *fiber.Ctx) error {
 	// TODO: implement earnings summary
 	return c.JSON(fiber.Map{"earnings": 0})
 }
 
-// GetRatings returns the listener's ratings and reviews
 func GetRatings(c *fiber.Ctx) error {
 	// TODO: implement ratings retrieval
 	return c.JSON(fiber.Map{"ratings": []interface{}{}})
 }
 
-// GetHistory returns the listener's session history
 func GetHistory(c *fiber.Ctx) error {
 	// TODO: implement history retrieval
 	return c.JSON(fiber.Map{"history": []interface{}{}})
 }
 
-// WithdrawEarnings handles withdrawal requests
 func WithdrawEarnings(c *fiber.Ctx) error {
 	// TODO: implement withdrawal logic
 	return c.JSON(fiber.Map{"message": "Withdrawal requested"})
