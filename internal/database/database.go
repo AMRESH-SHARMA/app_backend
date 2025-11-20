@@ -1,6 +1,7 @@
 package database
 
 import (
+	"app_backend/internal/module/listener"
 	"fmt"
 	"log"
 
@@ -18,5 +19,14 @@ func ConnectDB() {
 		log.Fatal("❌ Failed to connect to database:")
 	}
 	DB = db
+
 	fmt.Println("✅ Database connection established")
+
+	if err := db.AutoMigrate(&listener.Listener{}); err != nil {
+		log.Fatal("❌ Migration failed:", err)
+	} else {
+		fmt.Println("✅ Migration done")
+	}
+
+	seed(db)
 }

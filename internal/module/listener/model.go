@@ -1,11 +1,13 @@
-package user
+package listener
 
 import "gorm.io/gorm"
 
-type User struct {
+type Listener struct {
 	ID       int    `json:"id"`
-	Name     string `json:"name"`
+	Name     string `gorm:"size:100" json:"name"`
 	Phone    string `gorm:"unique" json:"phone"`
+	Email    string `gorm:"unique" json:"email"`
+	Avatar   string `json:"avatar"`
 	Gender   string `json:"gender"`
 	Language string `json:"language"`
 	gorm.Model
