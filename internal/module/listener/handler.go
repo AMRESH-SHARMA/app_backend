@@ -2,44 +2,43 @@ package listener
 
 import (
 	"app_backend/internal/response"
-	"app_backend/internal/testdb"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-// global search for listeners by name, ID, or language
-func GlobalSearch(c *fiber.Ctx) error {
-	query := c.Query("query")
-	// log.Printf("q", query)
-	var listeners []testdb.Listener
-	// if dbInstance == nil {
-	// 	return response.SuccessResponse(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
-	// }
-	// dbInstance.Where("name LIKE ? OR language LIKE ? OR id = ?", "%"+query+"%", "%"+query+"%", query).Find(&listeners)
-	return response.SuccessResponse(c, fiber.Map{
-		"results": listeners,
-		"query":   query,
-	}, "Global search successful", fiber.StatusOK)
-}
+// // global search for listeners by name, ID, or language
+// func GlobalSearch(c *fiber.Ctx) error {
+// 	query := c.Query("query")
+// 	// log.Printf("q", query)
+// 	var listeners []testdb.Listener
+// 	// if dbInstance == nil {
+// 	// 	return response.Success(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
+// 	// }
+// 	// dbInstance.Where("name LIKE ? OR language LIKE ? OR id = ?", "%"+query+"%", "%"+query+"%", query).Find(&listeners)
+// 	return response.Success(c, fiber.Map{
+// 		"results": listeners,
+// 		"query":   query,
+// 	}, "Global search successful", fiber.StatusOK)
+// }
 
-// custom search for listeners by language, gender, and age group
-func CustomSearch(c *fiber.Ctx) error {
-	language := c.Query("language")
-	gender := c.Query("gender")
-	ageGroup := c.Query("age_group")
-	var listeners []testdb.Listener
-	// if dbInstance == nil {
-	// 	return response.SuccessResponse(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
-	// }
-	// dbInstance.Where("language = ? AND gender = ? AND age_group = ?", language, gender, ageGroup).Find(&listeners)
+// // custom search for listeners by language, gender, and age group
+// func CustomSearch(c *fiber.Ctx) error {
+// 	language := c.Query("language")
+// 	gender := c.Query("gender")
+// 	ageGroup := c.Query("age_group")
+// 	var listeners []testdb.Listener
+// 	// if dbInstance == nil {
+// 	// 	return response.Success(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
+// 	// }
+// 	// dbInstance.Where("language = ? AND gender = ? AND age_group = ?", language, gender, ageGroup).Find(&listeners)
 
-	return response.SuccessResponse(c, fiber.Map{
-		"results":   listeners,
-		"language":  language,
-		"gender":    gender,
-		"age_group": ageGroup,
-	}, "Custom search successful", fiber.StatusOK)
-}
+// 	return response.Success(c, fiber.Map{
+// 		"results":   listeners,
+// 		"language":  language,
+// 		"gender":    gender,
+// 		"age_group": ageGroup,
+// 	}, "Custom search successful", fiber.StatusOK)
+// }
 
 // RegisterListener handles listener registration
 func RegisterListener(c *fiber.Ctx) error {
@@ -55,7 +54,11 @@ func LoginListener(c *fiber.Ctx) error {
 
 // Add server side pagination
 func GetAllListener(c *fiber.Ctx) error {
-	return c.JSON(fiber.Map{"message": "Listener logged in"})
+	listeners, err := GetAllListeners()
+	if err != nil {
+		return response.Error(c, "MSG", fiber.StatusNotFound)
+	}
+	return response.Success(c, listeners, "MSG", fiber.StatusOK)
 }
 
 func GetProfile(c *fiber.Ctx) error {

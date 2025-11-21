@@ -10,5 +10,6 @@ type Listener struct {
 	Avatar   string `json:"avatar"`
 	Gender   string `json:"gender"`
 	Language string `json:"language"`
+	AboutMe  string `gorm:"type:text" json:"about_me"`
 	gorm.Model
 }

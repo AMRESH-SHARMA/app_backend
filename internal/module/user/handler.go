@@ -28,13 +28,13 @@ func CustomSearch(c *fiber.Ctx) error {
 }
 
 func GetRecentInteractions(c *fiber.Ctx) error {
-	return response.SuccessResponse(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
+	return response.Success(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
 }
 
 func AddToRecentInteractions(c *fiber.Ctx) error {
-	return response.SuccessResponse(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
+	return response.Success(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
 }
 
 func DeleteFromRecentInteractions(c *fiber.Ctx) error {
-	return response.SuccessResponse(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
+	return response.Success(c, []any{}, "Fetched recent interactions", fiber.StatusOK)
 }

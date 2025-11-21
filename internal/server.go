@@ -5,7 +5,7 @@ import (
 	"app_backend/internal/module/listener"
 	"app_backend/internal/module/payment"
 	"app_backend/internal/module/test"
-	"app_backend/internal/response"
+	"app_backend/internal/seed"
 
 	"fmt"
 
@@ -17,9 +17,16 @@ func StartServer() error {
 
 	database.ConnectDB()
 
-	app := fiber.New(fiber.Config{
-		ErrorHandler: response.ErrorHandler,
-	})
+	if viper.GetString("ENV") == "development" {
+		database.DB.AutoMigrate(&listener.Listener{})
+		seed.Run(database.DB)
+	}
+
+	app := fiber.New()
+
+	// app := fiber.New(fiber.Config{
+	// 	ErrorHandler: response.Error,
+	// })
 
 	test.RegisterRoutes(app)
 	// Register module routes under /api/v1/...
