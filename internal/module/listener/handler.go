@@ -6,20 +6,24 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// // global search for listeners by name, ID, or language
-// func GlobalSearch(c *fiber.Ctx) error {
-// 	query := c.Query("query")
-// 	// log.Printf("q", query)
-// 	var listeners []testdb.Listener
-// 	// if dbInstance == nil {
-// 	// 	return response.Success(c, []testdb.Listener{}, "No DB instance", fiber.StatusOK)
-// 	// }
-// 	// dbInstance.Where("name LIKE ? OR language LIKE ? OR id = ?", "%"+query+"%", "%"+query+"%", query).Find(&listeners)
-// 	return response.Success(c, fiber.Map{
-// 		"results": listeners,
-// 		"query":   query,
-// 	}, "Global search successful", fiber.StatusOK)
-// }
+// global search for listeners by name, ID, or language
+func GlobalSearch(c *fiber.Ctx) error {
+	accountID := c.Query("account_id")
+	name := c.Query("name")
+	gender := c.Query("gender")
+	lang := c.Query("lang")
+
+	listeners, err := GlobalSearchR(accountID, name, gender, lang)
+	if err != nil {
+		return response.Error(c, "Failed to search listeners", fiber.StatusInternalServerError)
+	}
+
+	if len(listeners) == 0 {
+		return response.Success(c, listeners, "No Listeners found matching criteria", fiber.StatusOK)
+	}
+
+	return response.Success(c, listeners, "Listeners found", fiber.StatusOK)
+}
 
 // // custom search for listeners by language, gender, and age group
 // func CustomSearch(c *fiber.Ctx) error {
@@ -54,7 +58,7 @@ func LoginListener(c *fiber.Ctx) error {
 
 // Add server side pagination
 func GetAllListener(c *fiber.Ctx) error {
-	listeners, err := GetAllListeners()
+	listeners, err := GetAllListenerR()
 	if err != nil {
 		return response.Error(c, "MSG", fiber.StatusNotFound)
 	}

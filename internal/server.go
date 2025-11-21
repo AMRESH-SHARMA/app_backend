@@ -5,7 +5,6 @@ import (
 	"app_backend/internal/module/listener"
 	"app_backend/internal/module/payment"
 	"app_backend/internal/module/test"
-	"app_backend/internal/seed"
 
 	"fmt"
 
@@ -18,8 +17,9 @@ func StartServer() error {
 	database.ConnectDB()
 
 	if viper.GetString("ENV") == "development" {
-		database.DB.AutoMigrate(&listener.Listener{})
-		seed.Run(database.DB)
+		// database.DB.AutoMigrate(&listener.Listener{})
+		// database.DB.AutoMigrate(&user.User{})
+		// seed.Run(database.DB)
 	}
 
 	app := fiber.New()

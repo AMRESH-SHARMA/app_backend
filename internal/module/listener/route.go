@@ -3,7 +3,7 @@ package listener
 import "github.com/gofiber/fiber/v2"
 
 func RegisterRoutes(router fiber.Router) {
-	// router.Get("/gsearch", GlobalSearch)
+	router.Get("/gsearch", GlobalSearch)
 	// router.Get("/csearch", CustomSearch)
 
 	router.Post("/register", RegisterListener)

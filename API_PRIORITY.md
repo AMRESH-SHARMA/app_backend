@@ -84,3 +84,7 @@
 - **test** – Test routes, mocks, or integration test helpers
 
 Use this section to plan and track your project structure and module responsibilities.
+
+## API
+http://127.0.0.1:3001/api/v1/listeners/
+http://127.0.0.1:3001/api/v1/listeners/gsearch?lang=hindi&gender=male
