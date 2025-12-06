@@ -2,3 +2,5 @@
 *.exe
 tmp/build-errors.log
 tmp/main.exe
+config.dev.yaml
+config.prod.yaml
