@@ -60,9 +60,9 @@ func LoginListener(c *fiber.Ctx) error {
 func GetAllListener(c *fiber.Ctx) error {
 	listeners, err := GetAllListenerR()
 	if err != nil {
-		return response.Error(c, "MSG", fiber.StatusNotFound)
+		return response.Error(c, "All Listeners", fiber.StatusNotFound)
 	}
-	return response.Success(c, listeners, "MSG", fiber.StatusOK)
+	return response.Success(c, listeners, "All Listeners", fiber.StatusOK)
 }
 
 func GetProfile(c *fiber.Ctx) error {

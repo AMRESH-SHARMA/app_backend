@@ -2,24 +2,24 @@ package listener
 
 import "github.com/gofiber/fiber/v2"
 
-func RegisterRoutes(router fiber.Router) {
-	router.Get("/gsearch", GlobalSearch)
-	// router.Get("/csearch", CustomSearch)
+func RegisterRoutes(r fiber.Router) {
+	r.Get("/gsearch", GlobalSearch)
+	// r.Get("/csearch", CustomSearch)
 
-	router.Post("/register", RegisterListener)
-	router.Post("/login", LoginListener)
+	r.Post("/register", RegisterListener)
+	r.Post("/login", LoginListener)
 
-	router.Get("/", GetAllListener)
-	router.Get("/profile/:id", GetProfile)
-	router.Put("/profile/:id", UpdateProfile)
+	r.Get("/", GetAllListener)
+	r.Get("/profile/:id", GetProfile)
+	r.Put("/profile/:id", UpdateProfile)
 
-	router.Get("/availability/:id", GetAvailability)
-	router.Put("/availability/:id", UpdateAvailability)
+	r.Get("/availability/:id", GetAvailability)
+	r.Put("/availability/:id", UpdateAvailability)
 
-	// router.Get("/sessions/:id", GetSessions)
-	// router.Get("/earnings/:id", GetEarnings)
+	// r.Get("/sessions/:id", GetSessions)
+	// r.Get("/earnings/:id", GetEarnings)
 
-	router.Get("/ratings/:id", GetRatings)
-	router.Get("/history/:id", GetHistory)
-	router.Post("/withdraw/:id", WithdrawEarnings)
+	r.Get("/ratings/:id", GetRatings)
+	r.Get("/history/:id", GetHistory)
+	r.Post("/withdraw/:id", WithdrawEarnings)
 }

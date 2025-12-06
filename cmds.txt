@@ -1,3 +1,22 @@
+
+install dependency:
+	go install github.com/air-verse/air@latest
+
+	go mod tidy
+	go mod download
+
+build:
+	go build -o $(APP_NAME) .
+
+run:
+	go run .
+
+start: build
+	./$(APP_NAME)
+
+
+
+
 mkdir go_fiber_backend
 cd go_fiber_backend
 go mod init your_project

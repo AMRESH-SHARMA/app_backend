@@ -2,13 +2,13 @@ package user
 
 import "github.com/gofiber/fiber/v2"
 
-func RegisterRoutes(router fiber.Router) {
-	router.Get("/csearch", GlobalSearch)
-	router.Get("/gsearch", CustomSearch)
+func RegisterRoutes(r fiber.Router) {
+	r.Get("/csearch", GlobalSearch)
+	r.Get("/gsearch", CustomSearch)
 
-	router.Get("/recent-interactions", GetRecentInteractions)
-	router.Patch("/recent-interactions/:id", AddToRecentInteractions)
-	router.Delete("/recent-interactions/:id", DeleteFromRecentInteractions)
+	r.Get("/recent-interactions", GetRecentInteractions)
+	r.Patch("/recent-interactions/:id", AddToRecentInteractions)
+	r.Delete("/recent-interactions/:id", DeleteFromRecentInteractions)
 }
 
 /*

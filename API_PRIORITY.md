@@ -4,8 +4,100 @@
 1. **User Registration & Login (with OTP verification)**
    - POST /auth/register
    - POST /auth/login
+   - POST /auth/refresh-token
    - POST /auth/verify-otp
    - POST /auth/resend-otp
+
+   **CALL**
+   POST /call/start
+   Body:
+   - callerId
+   - calleeId
+   - channelName
+
+   POST /call/accept
+   Body:
+   - callId
+
+   POST /call/reject
+   Body:
+   - callId
+
+   Cancel (caller ends before callee picks up)
+   POST /call/cancel
+   Body:
+   - callId
+
+   End Call (after connected)
+   POST /call/end
+   Body:
+   - callId
+
+   Missed / Timeout (optional)
+   POST /call/timeout
+   Body:
+   - callId
+
+
+   Optional Presence APIs (Online/Offline)
+   POST /presence/update
+   GET  /presence/{userId}
+
+   Call History APIs (Optional but common)
+   GET  /calls/history?userId={id}
+   GET  /calls/{callId}
+
+   Notification APIs (Optional)  
+   POST /notifications/send
+
+   **Backend Files:**
+   token service
+   call signaling
+   call storage
+   user permission checks
+
+   **Agora Token**
+   GET /agora/token?channelName={channel}&uid={uid}&role={publisher/subscriber}
+
+   **Accept call: Flow**
+   updates call status
+   notifies the caller via push or websocket
+   Then the app:
+   requests Agora token from your backend
+   joins Agora channel
+
+   🧠 Flow in your backend
+         user tries to start call:
+
+         user calls /call/start
+
+         backend checks permissions:
+
+         is caller authenticated?
+
+         is callee valid?
+
+         is callee online?
+
+         is listener busy?
+
+         if allowed, backend:
+
+         creates call record
+
+         sends push notification
+
+         returns call_id
+
+         user accepts:
+
+         backend checks if call_id exists
+
+         check if still valid
+
+         then generate Agora token
+
+         return token
 
 2. **User Profile**
    - GET /user/profile

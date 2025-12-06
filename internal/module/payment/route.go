@@ -2,9 +2,9 @@ package payment
 
 import "github.com/gofiber/fiber/v2"
 
-func RegisterRoutes(router fiber.Router) {
-	router.Get("/recharge/options", GetRechargeOptions)
-	router.Get("/balance/:id", GetBalance)
-	router.Post("/balance/add/:id", AddBalance)
-	router.Get("/history/:id", GetHistory)
+func RegisterRoutes(r fiber.Router) {
+	r.Get("/recharge/options", GetRechargeOptions)
+	r.Get("/balance/:id", GetBalance)
+	r.Post("/balance/add/:id", AddBalance)
+	r.Get("/history/:id", GetHistory)
 }
