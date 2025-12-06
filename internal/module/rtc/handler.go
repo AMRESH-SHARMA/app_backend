@@ -1,11 +1,11 @@
-package agora
+package rtc
 
 import (
 	"app_backend/internal/response"
-	"os"
 
 	rtctokenbuilder "github.com/AgoraIO/Tools/DynamicKey/AgoraDynamicKey/go/src/rtctokenbuilder2"
 	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 )
 
 func GenerateToken(c *fiber.Ctx) error {
@@ -15,10 +15,11 @@ func GenerateToken(c *fiber.Ctx) error {
 		return response.Error(c, "Invalid request body", fiber.StatusBadRequest)
 	}
 
-	appID := os.Getenv("AGORA_APP_ID")
-	appCert := os.Getenv("AGORA_APP_CERTIFICATE")
+	appID := viper.GetString("AGORA.APP_ID")
+	appCert := viper.GetString("AGORA.APP_CERTIFICATE")
+	tokenExpiry := uint32(viper.GetInt("AGORA.TOKEN_EXPIRY"))
 
-	if appID == "" || appCert == "" {
+	if appID == "" || appCert == "" || tokenExpiry == 0 {
 		return response.Error(c, "Agora environment variables missing", fiber.StatusInternalServerError)
 	}
 
@@ -28,8 +29,8 @@ func GenerateToken(c *fiber.Ctx) error {
 		req.Channel,
 		req.Uid,
 		rtctokenbuilder.RolePublisher,
-		3600,
-		3600,
+		tokenExpiry,
+		tokenExpiry,
 	)
 
 	if err != nil {

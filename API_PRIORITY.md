@@ -50,6 +50,30 @@
    Notification APIs (Optional)  
    POST /notifications/send
 
+start
+
+accept
+
+reject
+
+busy state
+
+missed call
+
+end call
+
+offline notifications
+
+presence hooks
+
+listener availability
+
+RTC integration
+
+Firebase push events
+
+WebSocket signaling
+
    **Backend Files:**
    token service
    call signaling
@@ -57,7 +81,8 @@
    user permission checks
 
    **Agora Token**
-   GET /agora/token?channelName={channel}&uid={uid}&role={publisher/subscriber}
+   POST /agora/token
+      channelName={channel}&uid={uid}&role={publisher/subscriber}
 
    **Accept call: Flow**
    updates call status

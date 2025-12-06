@@ -15,7 +15,7 @@ start: build
 	./$(APP_NAME)
 
 
-
+user.RegisterDeviceTokenRoutes(v1.Group("/user"))
 
 mkdir go_fiber_backend
 cd go_fiber_backend

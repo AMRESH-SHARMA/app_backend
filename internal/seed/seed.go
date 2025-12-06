@@ -10,20 +10,57 @@ import (
 
 func Run(db *gorm.DB) {
 	defer fmt.Println("✅ Seeded")
-	db.Create(&listeners)
 	db.Create(&users)
-}
+	db.Create(&listeners)
 
-var listeners = []listener.Listener{
-	{Name: "Alice", Phone: "1234567890", Email: "a@g.com", Avatar: "https://i.pravatar.cc/150?img=48", Gender: "female", Language: "English", AboutMe: "Hello, I'm Alice."},
-	{Name: "Bob", Phone: "2234567890", Email: "b@g.com", Avatar: "https://i.pravatar.cc/150?img=48", Gender: "male", Language: "Hindi", AboutMe: "Hi, I'm Bob."},
-	{Name: "Charlie", Phone: "3234567890", Email: "c@g.com", Avatar: "https://i.pravatar.cc/150?img=48", Gender: "male", Language: "English", AboutMe: "Hey there, I'm Charlie."},
-	{Name: "Diana", Phone: "4234567890", Email: "d@g.com", Avatar: "https://i.pravatar.cc/150?img=48", Gender: "female", Language: "French", AboutMe: "Bonjour, I'm Diana."},
 }
 
 var users = []user.User{
-	{Name: "Alice", Phone: "1234567890", Gender: "female", Language: "English"},
-	{Name: "Bob", Phone: "2234567890", Gender: "male", Language: "Hindi"},
-	{Name: "Charlie", Phone: "3234567890", Gender: "male", Language: "English"},
-	{Name: "Diana", Phone: "4234567890", Gender: "female", Language: "French"},
+	{ID: 1, Name: "Alice", Email: "alice@g.com", Phone: "0123456789", Gender: "female", Language: "English", Role: "CUSTOMER"},
+	{ID: 1, Name: "Bob", Email: "bob@g.com", Phone: "1234567890", Gender: "male", Language: "Hindi", Role: "CUSTOMER"},
+	{ID: 1, Name: "Charlie", Email: "charlie@g.com", Phone: "0113456789", Gender: "male", Language: "English", Role: "CUSTOMER"},
+	{ID: 1, Name: "Diana", Email: "diana@g.com", Phone: "1113456789", Gender: "female", Language: "French", Role: "CUSTOMER"},
+}
+
+var listeners = []listener.Listener{
+	{
+		UserID:      1,
+		Avatar:      "https://i.pravatar.cc/150?img=48",
+		Bio:         "Professional listener for life guidance.",
+		About:       "Hello, I'm Alice.",
+		Experience:  3,
+		PricePerMin: 2.50,
+		Languages:   "English",
+		Rating:      4.5,
+	},
+	{
+		UserID:      2,
+		Avatar:      "https://i.pravatar.cc/150?img=48",
+		Bio:         "Experienced listener specializing in mindset coaching.",
+		About:       "Hi, I'm Bob.",
+		Experience:  5,
+		PricePerMin: 3.75,
+		Languages:   "Hindi",
+		Rating:      4.2,
+	},
+	{
+		UserID:      3,
+		Avatar:      "https://i.pravatar.cc/150?img=48",
+		Bio:         "I love helping people through conversations.",
+		About:       "Hey there, I'm Charlie.",
+		Experience:  4,
+		PricePerMin: 4.99,
+		Languages:   "English",
+		Rating:      4.0,
+	},
+	{
+		UserID:      4,
+		Avatar:      "https://i.pravatar.cc/150?img=48",
+		Bio:         "Multilingual listener with international experience.",
+		About:       "Bonjour, I'm Diana.",
+		Experience:  6,
+		PricePerMin: 5.50,
+		Languages:   "French",
+		Rating:      4.8,
+	},
 }

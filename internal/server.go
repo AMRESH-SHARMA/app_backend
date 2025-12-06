@@ -2,10 +2,14 @@ package internal
 
 import (
 	"app_backend/internal/database"
-	"app_backend/internal/module/agora"
+	"app_backend/internal/module/call"
 	"app_backend/internal/module/listener"
+	"app_backend/internal/module/notification"
 	"app_backend/internal/module/payment"
+	"app_backend/internal/module/rtc"
 	"app_backend/internal/module/test"
+	"app_backend/internal/module/user"
+	"app_backend/internal/seed"
 
 	"fmt"
 
@@ -22,12 +26,15 @@ func StartServer() error {
 			Uncomment to enable DB Migration and Seeding
 			After uncomment need to import using quick fix
 		*/
-		// database.DB.AutoMigrate(&listener.Listener{})
-		// database.DB.AutoMigrate(&user.User{})
-		// seed.Run(database.DB)
+		database.DB.AutoMigrate(&user.User{})
+		database.DB.AutoMigrate(&listener.Listener{})
+
+		seed.Run(database.DB)
 	}
 
 	app := fiber.New()
+
+	notification.InitFCM()
 
 	// app := fiber.New(fiber.Config{
 	// 	ErrorHandler: response.Error,
@@ -38,10 +45,11 @@ func StartServer() error {
 	v1 := app.Group("/api/v1")
 	listener.RegisterRoutes(v1.Group("/listeners"))
 	payment.RegisterRoutes(v1.Group("/payments"))
-	// user.RegisterRoutes(api.Group("/users"))
+	user.RegisterDeviceTokenRoutes(v1.Group("/user"))
 
-	// Agora
-	agora.RegisterRoutes(v1.Group("/agora"))
+	// RTC [Agora]
+	rtc.RegisterRoutes(v1.Group("/rtc"))
+	call.RegisterRoutes(v1.Group("/call"))
 
 	port := viper.GetInt("PORT")
 	if port == 0 {

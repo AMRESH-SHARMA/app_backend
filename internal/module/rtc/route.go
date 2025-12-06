@@ -1,4 +1,4 @@
-package agora
+package rtc
 
 import "github.com/gofiber/fiber/v2"
 

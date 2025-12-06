@@ -1,4 +1,4 @@
-package agora
+package rtc
 
 type TokenRequest struct {
 	Channel string `json:"channel"`

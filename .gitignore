@@ -4,3 +4,4 @@ tmp/build-errors.log
 tmp/main.exe
 config.dev.yaml
 config.prod.yaml
+internal/config/firebase_service_account.json

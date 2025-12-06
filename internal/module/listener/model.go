@@ -3,13 +3,14 @@ package listener
 import "gorm.io/gorm"
 
 type Listener struct {
-	ID       int    `json:"id"`
-	Name     string `gorm:"size:100" json:"name"`
-	Phone    string `gorm:"unique" json:"phone"`
-	Email    string `gorm:"unique" json:"email"`
-	Avatar   string `json:"avatar"`
-	Gender   string `json:"gender"`
-	Language string `json:"language"`
-	AboutMe  string `gorm:"type:text" json:"about_me"`
+	ID          uint    `json:"id" gorm:"primaryKey"`
+	UserID      uint    `json:"userId" gorm:"unique"`
+	Avatar      string  `json:"avatar"`
+	Bio         string  `json:"bio"`
+	About       string  `gorm:"type:text" json:"about"`
+	Experience  int     `json:"experience"`
+	PricePerMin float64 `json:"pricePerMin"`
+	Languages   string  `json:"languages"`
+	Rating      float32 `json:"rating"`
 	gorm.Model
 }

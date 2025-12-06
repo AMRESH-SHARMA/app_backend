@@ -5,7 +5,8 @@ DATABASE_URL: "host=localhost user=postgres password=root dbname=go_backend port
 
 JWT_SECRET: "devsecret"
 
-AGORA:
+RTC:
+  PROVIDER: "agora"
   APP_ID: "your_agora_app_id_here"
   APP_CERTIFICATE: "your_agora_certificate_here"
   TOKEN_EXPIRY: 3600   # optional but useful, in seconds
