@@ -10,6 +10,8 @@ import (
 	"app_backend/internal/module/test"
 	"app_backend/internal/module/user"
 
+	"github.com/gofiber/fiber/v2/middleware/cors"
+
 	// "app_backend/internal/seed"
 
 	"fmt"
@@ -34,7 +36,10 @@ func StartServer() error {
 	}
 
 	app := fiber.New()
-
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 	notification.InitFCM()
 
 	// app := fiber.New(fiber.Config{
@@ -56,5 +61,6 @@ func StartServer() error {
 	if port == 0 {
 		port = 8080
 	}
-	return app.Listen(fmt.Sprintf(":%d", port))
+	// return app.Listen(fmt.Sprintf(":%d", port))
+	return app.Listen(fmt.Sprintf("0.0.0.0:%d", port))
 }

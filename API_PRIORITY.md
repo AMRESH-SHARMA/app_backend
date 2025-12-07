@@ -205,3 +205,36 @@ Use this section to plan and track your project structure and module responsibil
 ## API
 http://127.0.0.1:3001/api/v1/listeners/
 http://127.0.0.1:3001/api/v1/listeners/gsearch?lang=hindi&gender=male
+
+
+UI (Compose)
+   ↓
+ViewModel
+   ↓
+UseCase
+   ↓
+Repository
+   ↓
+Remote API (Retrofit)
+   ↓
+Backend response → DTO
+   ↑
+Mapper converts DTO → Domain model
+   ↑
+ViewModel updates StateFlow
+   ↑
+Compose recomposes UI
+
+
+## Loading Image optimize:
+If you want, I can show how to:
+
+preload images
+
+use Coil image loader
+
+show shimmer
+
+prefetch avatar on splash
+
+cache aggressively like WhatsApp
