@@ -9,7 +9,8 @@ import (
 	"app_backend/internal/module/rtc"
 	"app_backend/internal/module/test"
 	"app_backend/internal/module/user"
-	"app_backend/internal/seed"
+
+	// "app_backend/internal/seed"
 
 	"fmt"
 
@@ -26,10 +27,10 @@ func StartServer() error {
 			Uncomment to enable DB Migration and Seeding
 			After uncomment need to import using quick fix
 		*/
-		database.DB.AutoMigrate(&user.User{})
-		database.DB.AutoMigrate(&listener.Listener{})
+		// database.DB.AutoMigrate(&user.User{})
+		// database.DB.AutoMigrate(&listener.Listener{})
 
-		seed.Run(database.DB)
+		// seed.Run(database.DB)
 	}
 
 	app := fiber.New()

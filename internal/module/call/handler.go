@@ -1,6 +1,9 @@
 package call
 
 import (
+	"app_backend/internal/database"
+	"app_backend/internal/module/notification"
+	"app_backend/internal/module/user"
 	"app_backend/internal/response"
 
 	"github.com/gofiber/fiber/v2"
@@ -22,6 +25,22 @@ func StartCall(c *fiber.Ctx) error {
 		Status:   "RINGING",
 		Channel:  req.Channel,
 	}
+
+	// ---- NEW CODE START ----
+
+	// lookup callee in DB
+	var callee user.User
+	if err := database.DB.First(&callee, req.CalleeID).Error; err == nil {
+		// send push
+		notification.SendToToken(callee.DeviceToken, map[string]string{
+			"type":     "incoming_call",
+			"callId":   callID,
+			"callerId": req.CallerID,
+			"channel":  req.Channel,
+		})
+	}
+
+	// ---- NEW CODE END ----
 
 	return response.Success(c, fiber.Map{
 		"callId": callID,

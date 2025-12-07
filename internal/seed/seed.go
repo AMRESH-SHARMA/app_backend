@@ -17,9 +17,9 @@ func Run(db *gorm.DB) {
 
 var users = []user.User{
 	{ID: 1, Name: "Alice", Email: "alice@g.com", Phone: "0123456789", Gender: "female", Language: "English", Role: "CUSTOMER"},
-	{ID: 1, Name: "Bob", Email: "bob@g.com", Phone: "1234567890", Gender: "male", Language: "Hindi", Role: "CUSTOMER"},
-	{ID: 1, Name: "Charlie", Email: "charlie@g.com", Phone: "0113456789", Gender: "male", Language: "English", Role: "CUSTOMER"},
-	{ID: 1, Name: "Diana", Email: "diana@g.com", Phone: "1113456789", Gender: "female", Language: "French", Role: "CUSTOMER"},
+	{ID: 2, Name: "Bob", Email: "bob@g.com", Phone: "1234567890", Gender: "male", Language: "Hindi", Role: "CUSTOMER"},
+	{ID: 3, Name: "Charlie", Email: "charlie@g.com", Phone: "0113456789", Gender: "male", Language: "English", Role: "CUSTOMER"},
+	{ID: 4, Name: "Diana", Email: "diana@g.com", Phone: "1113456789", Gender: "female", Language: "French", Role: "CUSTOMER"},
 }
 
 var listeners = []listener.Listener{
