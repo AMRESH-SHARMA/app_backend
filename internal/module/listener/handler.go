@@ -58,11 +58,26 @@ func LoginListener(c *fiber.Ctx) error {
 
 // Add server side pagination
 func GetAllListener(c *fiber.Ctx) error {
-	listeners, err := GetAllListenerR()
-	if err != nil {
-		return response.Error(c, "All Listeners", fiber.StatusNotFound)
+	users, _ := GetAllListenerR()
+
+	var resp []ListenerGetResponse
+
+	for _, u := range users {
+		resp = append(resp, ListenerGetResponse{
+			AccountID:   u.AccountID,
+			Name:        u.Name,
+			Gender:      u.Gender,
+			Languages:   u.Languages,
+			Age:         u.Listener.Age,
+			Avatar:      u.Listener.Avatar,
+			TagLine:     u.Listener.TagLine,
+			About:       u.Listener.About,
+			PricePerMin: u.Listener.PricePerMin,
+			Rating:      u.Listener.Rating,
+		})
 	}
-	return response.Success(c, listeners, "All Listeners", fiber.StatusOK)
+
+	return response.Success(c, resp, "All Listeners", fiber.StatusOK)
 }
 
 func GetProfile(c *fiber.Ctx) error {

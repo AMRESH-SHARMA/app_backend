@@ -11,8 +11,9 @@ import (
 	"app_backend/internal/module/user"
 
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 
-	// "app_backend/internal/seed"
+	"app_backend/internal/seed"
 
 	"fmt"
 
@@ -29,13 +30,27 @@ func StartServer() error {
 			Uncomment to enable DB Migration and Seeding
 			After uncomment need to import using quick fix
 		*/
-		// database.DB.AutoMigrate(&user.User{})
-		// database.DB.AutoMigrate(&listener.Listener{})
+		database.DB.AutoMigrate(&user.User{})
+		database.DB.AutoMigrate(&listener.Listener{})
 
-		// seed.Run(database.DB)
+		seed.Run(database.DB)
 	}
 
 	app := fiber.New()
+
+	if viper.GetString("ENV") == "development" {
+		app.Use(logger.New(logger.Config{
+			Format:     "${time} | ${ip} | ${status} | ${latency} | ${method} ${path}\n",
+			TimeFormat: "2006-01-02 15:04:05",
+			TimeZone:   "Local",
+		}))
+
+		app.Use(func(c *fiber.Ctx) error {
+			fmt.Printf("\nREQ BODY: %s\n", c.Body())
+			return c.Next()
+		})
+	}
+
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 		AllowHeaders: "Origin, Content-Type, Accept",

@@ -1,16 +1,12 @@
 package listener
 
-import "gorm.io/gorm"
-
 type Listener struct {
-	ID          uint    `json:"id" gorm:"primaryKey"`
-	UserID      uint    `json:"userId" gorm:"unique"`
+	UserID      uint    `json:"userId" gorm:"primaryKey"`
+	Age         int     `json:"age"`
 	Avatar      string  `json:"avatar"`
-	Bio         string  `json:"bio"`
+	TagLine     string  `json:"TagLine"`
 	About       string  `gorm:"type:text" json:"about"`
 	Experience  int     `json:"experience"`
 	PricePerMin float64 `json:"pricePerMin"`
-	Languages   string  `json:"languages"`
 	Rating      float32 `json:"rating"`
-	gorm.Model
 }

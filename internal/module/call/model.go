@@ -11,7 +11,6 @@ type Call struct {
 type StartCallRequest struct {
 	CallerID string `json:"callerId"`
 	CalleeID string `json:"calleeId"`
-	Channel  string `json:"channel"`
 }
 
 type AcceptCallRequest struct {

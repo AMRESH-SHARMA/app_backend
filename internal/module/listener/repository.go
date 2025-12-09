@@ -2,11 +2,18 @@ package listener
 
 import (
 	"app_backend/internal/database"
+	"app_backend/internal/module/user"
 )
 
-func GetAllListenerR() ([]Listener, error) {
-	var listeners []Listener
-	err := database.DB.Find(&listeners).Error
+func GetAllListenerR() ([]user.User, error) {
+	var listeners []user.User
+
+	err := database.DB.
+		Where("role = ?", "LISTENER").
+		Preload("Listener"). // preload listener profile
+		Find(&listeners).
+		Error
+
 	return listeners, err
 }
 

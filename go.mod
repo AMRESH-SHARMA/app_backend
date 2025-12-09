@@ -7,6 +7,7 @@ require (
 	github.com/AgoraIO/Tools/DynamicKey/AgoraDynamicKey/go/src v0.0.0-20250825033728-374cd21f5220
 	github.com/gofiber/fiber/v2 v2.52.10
 	github.com/google/uuid v1.6.0
+	github.com/lib/pq v1.10.9
 	github.com/spf13/viper v1.21.0
 	google.golang.org/api v0.257.0
 	gorm.io/driver/postgres v1.6.0

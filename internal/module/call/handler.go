@@ -23,24 +23,17 @@ func StartCall(c *fiber.Ctx) error {
 		CallerID: req.CallerID,
 		CalleeID: req.CalleeID,
 		Status:   "RINGING",
-		Channel:  req.Channel,
 	}
-
-	// ---- NEW CODE START ----
 
 	// lookup callee in DB
 	var callee user.User
-	if err := database.DB.First(&callee, req.CalleeID).Error; err == nil {
-		// send push
+	if err := database.DB.First(&callee, "account_id = ?", req.CalleeID).Error; err == nil {
 		notification.SendToToken(callee.DeviceToken, map[string]string{
 			"type":     "incoming_call",
 			"callId":   callID,
 			"callerId": req.CallerID,
-			"channel":  req.Channel,
 		})
 	}
-
-	// ---- NEW CODE END ----
 
 	return response.Success(c, fiber.Map{
 		"callId": callID,
