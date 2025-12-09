@@ -1,6 +1,6 @@
 module app_backend
 
-go 1.25.4
+go 1.25.5
 
 require (
 	firebase.google.com/go/v4 v4.18.0

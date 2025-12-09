@@ -28,16 +28,6 @@ func ValidationError(c *fiber.Ctx, errors any, message string, code int) error {
 }
 
 func Error(c *fiber.Ctx, message string, code int) error {
-	// code := fiber.StatusInternalServerError
-	// msg := "Internal Server Error"
-
-	// if e, ok := err.(*fiber.Error); ok {
-	// 	code = e.Code
-	// 	msg = e.Message
-	// } else if err != nil {
-	// 	msg = err.Error()
-	// }
-	// log.Printf("[ERROR] %v", err)
 	return c.Status(code).JSON(Response{
 		Success: false,
 		Message: message,

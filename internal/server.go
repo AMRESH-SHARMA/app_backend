@@ -10,10 +10,10 @@ import (
 	"app_backend/internal/module/test"
 	"app_backend/internal/module/user"
 
+	// "app_backend/internal/seed"
+
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-
-	"app_backend/internal/seed"
 
 	"fmt"
 
@@ -30,10 +30,11 @@ func StartServer() error {
 			Uncomment to enable DB Migration and Seeding
 			After uncomment need to import using quick fix
 		*/
-		database.DB.AutoMigrate(&user.User{})
-		database.DB.AutoMigrate(&listener.Listener{})
+		// database.DB.AutoMigrate(&user.User{})
+		// database.DB.AutoMigrate(&listener.Listener{})
+		// database.DB.AutoMigrate(&call.Call{})
 
-		seed.Run(database.DB)
+		// seed.Run(database.DB)
 	}
 
 	app := fiber.New()

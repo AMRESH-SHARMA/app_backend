@@ -1,6 +1,8 @@
 package user
 
 import (
+	"math/rand/v2"
+
 	"github.com/lib/pq"
 	"gorm.io/gorm"
 )
@@ -8,7 +10,7 @@ import (
 type User struct {
 	gorm.Model
 
-	AccountID   string         `gorm:"uniqueIndex;size:36;not null"`
+	AccountID   int64          `gorm:"uniqueIndex;not null" json:"accountId"`
 	Name        string         `json:"name"`
 	Email       string         `json:"email" gorm:"unique"`
 	Password    string         `json:"-"` // hashed
@@ -20,6 +22,19 @@ type User struct {
 
 	Listener ListenerProfile `json:"listener" gorm:"foreignKey:UserID"` // OK
 
+}
+
+func (u *User) BeforeCreate(tx *gorm.DB) (err error) {
+	for {
+		id := int64(rand.Uint32()) // convert here
+		var count int64
+		tx.Model(&User{}).Where("account_id = ?", id).Count(&count)
+		if count == 0 {
+			u.AccountID = id // assign int64
+			break
+		}
+	}
+	return
 }
 
 type ListenerProfile struct {

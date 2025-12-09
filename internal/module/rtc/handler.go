@@ -26,7 +26,7 @@ func GenerateToken(c *fiber.Ctx) error {
 	token, err := rtctokenbuilder.BuildTokenWithUserAccount(
 		appID,
 		appCert,
-		req.Channel,
+		req.Channel, // This is callId
 		req.Uid,
 		rtctokenbuilder.RolePublisher,
 		tokenExpiry,

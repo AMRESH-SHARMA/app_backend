@@ -3,7 +3,7 @@ package listener
 import "github.com/lib/pq"
 
 type ListenerGetResponse struct {
-	AccountID   string         `json:"accountId"`
+	AccountID   int64          `gorm:"uniqueIndex;not null" json:"accountId"`
 	Name        string         `json:"name"`
 	Age         int            `json:"age"`
 	Gender      string         `json:"gender"`
