@@ -5,7 +5,8 @@ import (
 	"app_backend/internal/module/call"
 	"app_backend/internal/module/listener"
 	"app_backend/internal/module/notification"
-	"app_backend/internal/module/payment"
+
+	// "app_backend/internal/module/payment"
 	"app_backend/internal/module/rtc"
 	"app_backend/internal/module/test"
 	"app_backend/internal/module/user"
@@ -66,7 +67,7 @@ func StartServer() error {
 	// Register module routes under /api/v1/...
 	v1 := app.Group("/api/v1")
 	listener.RegisterRoutes(v1.Group("/listeners"))
-	payment.RegisterRoutes(v1.Group("/payments"))
+	// payment.RegisterRoutes(v1.Group("/payments"))
 	user.RegisterDeviceTokenRoutes(v1.Group("/user"))
 
 	// RTC [Agora]
