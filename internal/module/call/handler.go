@@ -80,22 +80,22 @@ func AcceptCall(c *fiber.Ctx) error {
 func RejectCall(c *fiber.Ctx) error {
 	req := new(RejectCallRequest)
 	if err := c.BodyParser(req); err != nil {
-		return response.Error(c, "Invalid request", fiber.StatusBadRequest)
+		return response.Error(c, "Invalid request", 400)
 	}
 
 	var call Call
 	if err := database.DB.First(&call, "call_id = ?", req.CallID).Error; err != nil {
-		return response.Error(c, "Call not found", fiber.StatusNotFound)
+		return response.Error(c, "Call not found", 404)
 	}
 
 	call.Status = CallStatusRejected
 	call.EndedAt = time.Now().Unix()
 
 	if err := database.DB.Save(&call).Error; err != nil {
-		return response.Error(c, "DB error", fiber.StatusInternalServerError)
+		return response.Error(c, "DB error", 500)
 	}
 
-	// 🔥 notify caller
+	// Notify caller
 	var caller user.User
 	if err := database.DB.First(&caller, "account_id = ?", call.CallerID).Error; err == nil {
 		notification.SendToToken(caller.DeviceToken, map[string]string{
@@ -104,8 +104,17 @@ func RejectCall(c *fiber.Ctx) error {
 		})
 	}
 
+	// Notify callee too (important)
+	var callee user.User
+	if err := database.DB.First(&callee, "account_id = ?", call.CalleeID).Error; err == nil {
+		notification.SendToToken(callee.DeviceToken, map[string]string{
+			"type":   "call_rejected",
+			"callId": call.CallID,
+		})
+	}
+
 	return response.Success(c, fiber.Map{
 		"callId": call.CallID,
 		"status": call.Status,
-	}, "Call rejected", fiber.StatusOK)
+	}, "Call rejected", 200)
 }
